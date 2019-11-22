@@ -1,1 +1,85 @@
+Ultrasonic sensor
+#define trigpin 10 
+#define echopin 13
 
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(trigpin,OUTPUT);
+  pinMode(echopin, INPUT);
+
+}
+
+void loop() {
+float duration,distance;
+digitalWrite(trigpin,LOW);
+delayMicroseconds(2);
+
+digitalWrite(trigpin,HIGH);
+delayMicroseconds(10);
+digitalWrite(trigpin,LOW);
+
+duration = pulseIn(echopin,HIGH);
+distance = (duration / 2) * 0.0344;
+
+
+if (distance >=400 || distance <=2){
+  Serial.print("Distance=");
+  Serial.print(distance);
+  Serial.println("cm");
+  delay(500);
+}
+delay(500);
+}
+Temperature sensor 
+const int temp_pin=A0;
+
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+float Voltage;
+float temp_c;
+
+Voltage=analogRead(temp_pin)*5.0/1023;
+temp_c=100.0*Voltage-50;
+Serial.print("Voltage: ");
+Serial.print(Voltage);
+Serial.print(" degC: ");
+Serial.println(temp_c);
+delay(500);
+  
+  // put your main code here, to run repeatedly:
+
+}
+ PIR sensor
+ int pirPin=7; //digital 7 
+int buzzerPin = 6; //digital 6
+
+
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(pirPin, INPUT);
+  pinMode(buzzerPin, OUTPUT);
+  
+}
+
+void loop() {
+int pirVal = digitalRead(pirPin);
+Serial.println(pirVal);
+if(pirVal ==HIGH)
+{
+  // was motion detected
+  Serial.println(" Motion Detected");
+  digitalWrite(buzzerPin,HIGH);
+  delay(10);
+}
+else {
+  digitalWrite(buzzerPin, LOW);
+}
+
+  
+}
